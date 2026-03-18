@@ -1,0 +1,183 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-a-splash-screen-that-displays-the-trampomz-logo-and-app-name-centered-on-screen-shown-briefly-on-first-load-before-redirecting-to-the-login-screen",
+      "featureTitle": "Implement a Splash Screen that displays the TrampoMZ logo and app name centered on screen, shown briefly on first load before redirecting to the login screen.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/SplashScreen.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-authentication-using-internet-identity-google-login-after-login-prompt-new-users-to-complete-their-profile-with-full-name-phone-number-location-city-neighborhood-and-profession-or-mark-as-client-if-not-a-service-provider",
+      "featureTitle": "Implement authentication using Internet Identity (Google login). After login, prompt new users to complete their profile with: full name, phone number, location (city/neighborhood), and profession (or mark as 'client' if not a service provider).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/ProfileSetupModal.tsx",
+        "frontend/src/pages/LoginScreen.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-home-screen-featuring-a-search-bar-to-find-providers-by-name-or-profession-a-horizontal-scrollable-row-of-category-icons-e-g-electrician-plumber-carpenter-cleaner-driver-mason-it-other-and-a-vertical-list-of-recommended-service-providers-showing-their-photo-name-profession-location-star-rating-and-price",
+      "featureTitle": "Build a Home screen featuring: a search bar to find providers by name or profession, a horizontal scrollable row of category icons (e.g., Electrician, Plumber, Carpenter, Cleaner, Driver, Mason, IT, Other), and a vertical list of recommended service providers showing their photo, name, profession, location, star rating, and price.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/CategoryIcon.tsx",
+        "frontend/src/components/ProviderCard.tsx",
+        "frontend/src/pages/HomeScreen.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-provider-profile-screen-displaying-profile-photo-full-name-profession-location-hourly-service-price-average-star-rating-with-total-review-count-a-list-of-written-reviews-a-contratar-hire-button-that-initiates-a-message-and-a-premium-badge-if-the-provider-has-a-premium-plan",
+      "featureTitle": "Build a Provider Profile screen displaying: profile photo, full name, profession, location, hourly/service price, average star rating with total review count, a list of written reviews, a 'Contratar' (Hire) button that initiates a message, and a premium badge if the provider has a premium plan.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/ReviewItem.tsx",
+        "frontend/src/pages/ProviderProfileScreen.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-an-asynchronous-messaging-inbox-users-can-view-all-their-message-threads-showing-the-other-party-s-name-last-message-preview-and-timestamp-clicking-a-thread-opens-the-conversation-new-messages-are-sent-via-an-input-field-the-inbox-refreshes-via-polling-no-websockets",
+      "featureTitle": "Build an asynchronous messaging inbox. Users can view all their message threads (showing the other party's name, last message preview, and timestamp). Clicking a thread opens the conversation. New messages are sent via an input field. The inbox refreshes via polling (no WebSockets).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/ThreadItem.tsx",
+        "frontend/src/pages/ConversationScreen.tsx",
+        "frontend/src/pages/InboxScreen.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-review-evaluation-screen-where-a-client-can-submit-a-star-rating-1-5-and-a-written-comment-for-a-provider-after-hiring-them-submitted-reviews-must-be-stored-in-the-backend-and-reflected-in-the-provider-s-profile",
+      "featureTitle": "Build a Review/Evaluation screen where a client can submit a star rating (1–5) and a written comment for a provider after hiring them. Submitted reviews must be stored in the backend and reflected in the provider's profile.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/StarRating.tsx",
+        "frontend/src/pages/ReviewScreen.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-premium-plan-and-commission-indicators-provider-profiles-must-display-a-premium-badge-if-they-have-a-premium-subscription-a-visible-note-must-indicate-that-trampomz-charges-a-5-commission-per-completed-service-these-are-display-only-indicators-no-payment-gateway-integration",
+      "featureTitle": "Implement premium plan and commission indicators. Provider profiles must display a 'Premium' badge if they have a premium subscription. A visible note must indicate that TrampoMZ charges a 5% commission per completed service. These are display-only indicators (no payment gateway integration).",
+      "files": [
+        "frontend/src/components/PremiumBadge.tsx",
+        "frontend/src/components/ProviderCard.tsx",
+        "frontend/src/pages/ProviderProfileScreen.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-consistent-visual-theme-across-the-entire-app-warm-african-inspired-color-palette-e-g-earthy-reds-greens-and-gold-tones-bold-readable-typography-card-based-layout-for-provider-listings-and-mobile-first-responsive-design-optimized-for-lightweight-performance-on-slow-connections",
+      "featureTitle": "Apply a consistent visual theme across the entire app: warm African-inspired color palette (e.g., earthy reds, greens, and gold tones), bold readable typography, card-based layout for provider listings, and mobile-first responsive design optimized for lightweight performance on slow connections.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

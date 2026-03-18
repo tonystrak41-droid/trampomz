@@ -1,0 +1,21 @@
+{
+  "frontend/src/index.css": "Global styles with warm African-inspired OKLCH color palette (terracotta red, gold, forest green), Poppins/Inter fonts, and mobile-first utilities including scrollbar-hide and splash animation.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending the design system with Poppins/Inter fonts, warm color tokens, custom border radii, card shadows, and fade-in/splash animations.",
+  "frontend/src/hooks/useQueries.ts": "All React Query hooks for backend operations: user profiles, provider search, reviews, and async messaging with polling intervals.",
+  "frontend/src/App.tsx": "Main app component managing client-side routing via AppRoute state, splash screen timing, authentication flow, profile setup modal, and rendering all screens within the Layout.",
+  "frontend/src/pages/SplashScreen.tsx": "Full-screen splash with TrampoMZ logo, app name, African geometric SVG pattern background, and fade-out animation before redirecting to login.",
+  "frontend/src/pages/LoginScreen.tsx": "Login screen with gradient hero, feature highlights, and Internet Identity login button; handles auth state and error recovery.",
+  "frontend/src/components/ProfileSetupModal.tsx": "Modal dialog for new users to enter full name, phone, location, profession, provider toggle, and category; saves profile via saveCallerUserProfile.",
+  "frontend/src/components/Layout.tsx": "App shell with sticky header (logo, user avatar dropdown), main content area, and fixed bottom navigation bar for Home and Messages.",
+  "frontend/src/components/StarRating.tsx": "Reusable interactive/readonly 1–5 star rating component with three size variants.",
+  "frontend/src/components/PremiumBadge.tsx": "Small/medium premium badge with crown icon and gold gradient for premium provider display.",
+  "frontend/src/components/CategoryIcon.tsx": "Clickable category icon button with Lucide icon and label, highlights when selected.",
+  "frontend/src/components/ProviderCard.tsx": "Provider list card showing avatar, name, profession, location, star rating, review count, and premium badge; navigates to provider profile on click.",
+  "frontend/src/components/ReviewItem.tsx": "Single review display with reviewer avatar/initials, star rating, comment, and formatted date.",
+  "frontend/src/components/ThreadItem.tsx": "Clickable message thread row showing other user's name, last message preview, timestamp, and profession.",
+  "frontend/src/pages/HomeScreen.tsx": "Home screen with gradient hero search bar, horizontal scrollable category filter row, and filtered/sorted provider list with loading skeletons.",
+  "frontend/src/pages/ProviderProfileScreen.tsx": "Provider profile with photo, name, profession, location, phone, star rating, reviews list, commission notice, Hire and Review action buttons, and premium badge.",
+  "frontend/src/pages/InboxScreen.tsx": "Async messaging inbox listing all threads with polling, showing other user info and last message; empty state with CTA to explore providers.",
+  "frontend/src/pages/ConversationScreen.tsx": "Full conversation view with message bubbles, auto-scroll, polling for new messages, and send input with Enter key support.",
+  "frontend/src/pages/ReviewScreen.tsx": "Review submission form with large interactive star selector, comment textarea, validation, and footer with caffeine.ai attribution."
+}

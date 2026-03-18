@@ -1,0 +1,91 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-27T12:44:11.566Z",
+  "summary": "The diff implements most of the requested requirements for TrampoMZ PWA. Backend data models, authentication, all major screens (Splash, Login, Home, ProviderProfile, Inbox, Conversation, Review), messaging with polling, premium badges, commission indicators, and theming are all present. However, there are a few gaps: the provider price/hourly rate field is missing from the data model and UI, the backend does not expose a dedicated services/providers entity separate from users, and the provider list on the Home screen does not explicitly show a price field.",
+  "missing_requirements": [
+    {
+      "id": "REQ-3",
+      "requirement": "Recommended providers list shows photo, name, profession, location, average star rating, AND price",
+      "reason": "The ProviderCard component and User data type do not include a price/hourly rate field. The backend User type has no price property, and the card UI renders name, profession, location, and rating but no price.",
+      "evidence": [
+        "frontend/src/components/ProviderCard.tsx",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Provider Profile screen must display hourly/service price",
+      "reason": "The provider profile screen renders provider data but neither the User type in the backend nor the ProviderProfileScreen UI includes a price or hourly rate field.",
+      "evidence": [
+        "frontend/src/pages/ProviderProfileScreen.tsx",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Backend data model for services/providers as a distinct entity linked to user",
+      "reason": "The spec requires a separate services/providers entity linked to the user. The backend only has a User type with provider fields inlined; there is no separate service/provider record with its own storage such as price or service description.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Portfolio field on user profile",
+      "reason": "The User and UserProfile types include a portfolio field (array of ExternalBlob) and the ProfileSetupModal initializes it to an empty array. No portfolio functionality was requested in the build spec.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/components/ProfileSetupModal.tsx"
+      ]
+    },
+    {
+      "description": "Blob storage mixin included in backend",
+      "reason": "The backend imports and includes a MixinStorage for blob/file storage. No file upload or blob storage feature was requested in the spec.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Explicit isProvider boolean field with provider/client toggle UI",
+      "reason": "The spec asks users to mark themselves as client via the profession field, but the implementation adds a separate boolean isProvider field with an explicit toggle in the profile setup modal, going beyond the spec.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/components/ProfileSetupModal.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.78,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/CategoryIcon.tsx",
+    "frontend/src/components/Layout.tsx",
+    "frontend/src/components/PremiumBadge.tsx",
+    "frontend/src/components/ProfileSetupModal.tsx",
+    "frontend/src/components/ProviderCard.tsx",
+    "frontend/src/components/ReviewItem.tsx",
+    "frontend/src/components/StarRating.tsx",
+    "frontend/src/components/ThreadItem.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/ConversationScreen.tsx",
+    "frontend/src/pages/HomeScreen.tsx",
+    "frontend/src/pages/InboxScreen.tsx",
+    "frontend/src/pages/LoginScreen.tsx",
+    "frontend/src/pages/ProviderProfileScreen.tsx",
+    "frontend/src/pages/ReviewScreen.tsx",
+    "frontend/src/pages/SplashScreen.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

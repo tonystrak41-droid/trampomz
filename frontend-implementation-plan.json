@@ -1,0 +1,239 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "TrampoMZ - Mozambican Service Provider PWA Frontend Implementation",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Implement a Splash Screen displaying TrampoMZ logo and app name, shown briefly on first load before redirecting to login",
+      "acceptanceCriteria": [
+        "Splash screen displays TrampoMZ logo and name",
+        "Splash screen is shown for a brief duration (e.g., 2 seconds) on app load",
+        "User is redirected to the login screen after the splash"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SplashScreen.tsx",
+          "operation": "create",
+          "description": "Create the splash screen component displaying the TrampoMZ logo at frontend/public/assets/generated/trampo-logo.dim_512x512.png and app name centered on the background image at frontend/public/assets/generated/splash-bg.dim_1080x1920.png. After 2 seconds, redirect to the login route."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the SplashScreen as the initial route. Add logic to show the splash screen on first load, then navigate to the login route after the splash duration."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Implement Internet Identity authentication and new user profile setup form for name, phone, location, and profession",
+      "acceptanceCriteria": [
+        "User can log in via Internet Identity (Google)",
+        "New users are prompted to fill in name, phone, location, and profession",
+        "Profile data is persisted in the backend",
+        "Authenticated users are redirected to the Home screen"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LoginScreen.tsx",
+          "operation": "create",
+          "description": "Create the login screen with a button to trigger Internet Identity login. Use the authorization component to support Google login. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Create a modal form prompting new users to enter full name, phone number, location (city/neighborhood), and profession. Include a checkbox or toggle to mark the user as a service provider or client. On submit, call saveCallerUserProfile and registerUser backend capabilities. Use the authorization component to check if a profile exists via getCallerUserProfile. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add routing logic to check authentication status using the authorization component. If authenticated and no profile exists, show ProfileSetupModal. After profile setup, redirect to the Home screen. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useGetCallerUserProfile.ts",
+          "operation": "create",
+          "description": "Create a custom hook wrapping getCallerUserProfile to fetch the current user's profile. Follow the authorization component's pattern to prevent modal flash by checking actor availability and fetch status. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Build a Home screen with search bar, horizontal category icons, and vertical list of recommended service providers",
+      "acceptanceCriteria": [
+        "Search bar filters providers by name or profession",
+        "Category icons are displayed in a horizontal scrollable row",
+        "Tapping a category filters the provider list",
+        "Recommended providers list shows photo, name, profession, location, average star rating, and price",
+        "Home screen is responsive and lightweight"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/HomeScreen.tsx",
+          "operation": "create",
+          "description": "Create the home screen with a search bar, horizontal scrollable row of category icons (Electrician, Plumber, Carpenter, Cleaner, Driver, Mason, IT, Other), and a vertical list of providers. Fetch providers using getAllProviders and searchProvidersByCategory backend capabilities. Display each provider in a card showing their avatar (or frontend/public/assets/generated/avatar-placeholder.dim_256x256.png if none), name, profession, location, average star rating (fetch via getReviews), and price. Handle search filtering client-side by name or profession."
+        },
+        {
+          "path": "frontend/src/components/CategoryIcon.tsx",
+          "operation": "create",
+          "description": "Create a reusable category icon component for the horizontal scrollable row. Each icon represents a service category and triggers category filtering when clicked."
+        },
+        {
+          "path": "frontend/src/components/ProviderCard.tsx",
+          "operation": "create",
+          "description": "Create a reusable provider card component displaying provider photo, name, profession, location, star rating, and price. Use the default avatar at frontend/public/assets/generated/avatar-placeholder.dim_256x256.png if no avatar is set. Make the card clickable to navigate to the provider profile."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the HomeScreen route and set it as the default authenticated landing page after login or profile setup."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Build a Provider Profile screen displaying profile details, reviews, and a Hire button that initiates a message",
+      "acceptanceCriteria": [
+        "Provider profile displays all listed fields",
+        "Star rating is shown as an average with review count",
+        "Reviews list shows reviewer name, star rating, and comment",
+        "'Contratar' button opens a new message thread with the provider",
+        "Premium badge is visible on premium provider profiles"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ProviderProfileScreen.tsx",
+          "operation": "create",
+          "description": "Create the provider profile screen displaying profile photo (or frontend/public/assets/generated/avatar-placeholder.dim_256x256.png if none), full name, profession, location, hourly/service price, average star rating with total review count (fetch via getReviews), a list of written reviews, and a 'Contratar' (Hire) button. If the provider is premium, display a premium badge. The Hire button should navigate to the messaging screen with a new thread for this provider."
+        },
+        {
+          "path": "frontend/src/components/ReviewItem.tsx",
+          "operation": "create",
+          "description": "Create a reusable review item component displaying reviewer name (fetch via getUserProfile), star rating (1–5), and comment text."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the ProviderProfileScreen route with a dynamic provider ID parameter. Wire navigation from ProviderCard to this route."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Build an asynchronous messaging inbox with thread list, conversation view, and polling for new messages",
+      "acceptanceCriteria": [
+        "Inbox lists all message threads for the logged-in user",
+        "Each thread shows the other party's name, last message preview, and timestamp",
+        "Opening a thread shows full message history",
+        "User can send a new message via an input field",
+        "Inbox polls for new messages at a regular interval"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/InboxScreen.tsx",
+          "operation": "create",
+          "description": "Create the inbox screen listing all message threads using getMessageThreads backend capability. Display each thread with the other party's name (fetch via getUserProfile), last message preview, and timestamp. Implement polling to refresh threads at a regular interval (e.g., every 10 seconds)."
+        },
+        {
+          "path": "frontend/src/pages/ConversationScreen.tsx",
+          "operation": "create",
+          "description": "Create the conversation screen showing the full message history for a selected thread using getMessages backend capability. Include an input field and send button to submit new messages via sendMessage. Poll for new messages in this thread at a regular interval."
+        },
+        {
+          "path": "frontend/src/components/ThreadItem.tsx",
+          "operation": "create",
+          "description": "Create a reusable thread item component displaying the other party's name, last message preview, and timestamp. Make it clickable to navigate to the conversation screen."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register routes for InboxScreen and ConversationScreen with a dynamic threadId parameter. Wire navigation from the Hire button to ConversationScreen with a new threadId."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Build a Review/Evaluation screen for clients to submit star ratings and written comments for providers",
+      "acceptanceCriteria": [
+        "Review form shows a 1–5 star selector and a text comment field",
+        "Submitted reviews are saved to the backend",
+        "Provider's average rating updates after a new review is submitted",
+        "Reviews appear in the provider's profile"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ReviewScreen.tsx",
+          "operation": "create",
+          "description": "Create the review screen with a 1–5 star selector and a text comment field. On submit, call submitReview backend capability with the provider's Principal, star rating, and comment. Navigate back to the provider profile after successful submission."
+        },
+        {
+          "path": "frontend/src/components/StarRating.tsx",
+          "operation": "create",
+          "description": "Create a reusable star rating component allowing users to select 1–5 stars. Use this in the review form and for displaying provider ratings."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the ReviewScreen route with a dynamic provider ID parameter. Wire navigation from the provider profile or conversation to this route."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Implement premium badge and 5% commission notice display on provider profiles and relevant screens",
+      "acceptanceCriteria": [
+        "Premium providers have a visible badge on their profile and in the provider list",
+        "A 5% commission notice is displayed on relevant screens (e.g., provider profile or hire confirmation)",
+        "No real payment processing is implemented"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/PremiumBadge.tsx",
+          "operation": "create",
+          "description": "Create a reusable premium badge component displaying a 'Premium' label or icon. Use this in ProviderCard and ProviderProfileScreen when the provider's isPremium field is true."
+        },
+        {
+          "path": "frontend/src/pages/ProviderProfileScreen.tsx",
+          "operation": "modify",
+          "description": "Add a visible note indicating that TrampoMZ charges a 5% commission per completed service. Display the PremiumBadge if the provider is premium."
+        },
+        {
+          "path": "frontend/src/components/ProviderCard.tsx",
+          "operation": "modify",
+          "description": "Display the PremiumBadge on the provider card if the provider's isPremium field is true."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Apply consistent warm African-inspired visual theme with mobile-first responsive design across the entire app",
+      "acceptanceCriteria": [
+        "Color palette is consistent throughout all screens",
+        "Typography is legible on small mobile screens",
+        "Layouts are card-based and mobile-first",
+        "App loads quickly with minimal assets and no heavy animations"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Define a warm African-inspired color palette with earthy reds, greens, and gold tones. Set bold readable typography optimized for mobile screens. Ensure all styles support mobile-first responsive design."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend the Tailwind configuration with the warm African-inspired color palette (earthy reds, oranges, greens, and gold tones). Configure typography for legibility on small screens. Optimize for lightweight, fast-loading mobile experience."
+        },
+        {
+          "path": "frontend/src/components/Layout.tsx",
+          "operation": "create",
+          "description": "Create a layout component providing consistent navigation, header, and footer across all screens. Apply the warm color palette and mobile-first card-based layout design."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap all routes with the Layout component to ensure consistent theming across the app."
+        }
+      ]
+    }
+  ]
+}

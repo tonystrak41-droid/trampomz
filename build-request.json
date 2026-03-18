@@ -1,0 +1,210 @@
+{
+  "kind": "build_request",
+  "title": "Build TrampoMZ - Mozambican Service Provider PWA",
+  "projectName": "TrampoMZ",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Implement a Splash Screen that displays the TrampoMZ logo and app name centered on screen, shown briefly on first load before redirecting to the login screen.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Tela de Splash: Logo do app, Nome TrampoMZ"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Splash screen displays TrampoMZ logo and name",
+        "Splash screen is shown for a brief duration (e.g., 2 seconds) on app load",
+        "User is redirected to the login screen after the splash"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement authentication using Internet Identity (Google login). After login, prompt new users to complete their profile with: full name, phone number, location (city/neighborhood), and profession (or mark as 'client' if not a service provider).",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2",
+          "msg-4"
+        ],
+        "quotes": [
+          "Login com Google via Internet Identity",
+          "Cadastro com nome, telefone, localização"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can log in via Internet Identity (Google)",
+        "New users are prompted to fill in name, phone, location, and profession",
+        "Profile data is persisted in the backend",
+        "Authenticated users are redirected to the Home screen"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Build a Home screen featuring: a search bar to find providers by name or profession, a horizontal scrollable row of category icons (e.g., Electrician, Plumber, Carpenter, Cleaner, Driver, Mason, IT, Other), and a vertical list of recommended service providers showing their photo, name, profession, location, star rating, and price.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Barra de pesquisa",
+          "Categorias em ícones",
+          "Lista de prestadores recomendados"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Search bar filters providers by name or profession",
+        "Category icons are displayed in a horizontal scrollable row",
+        "Tapping a category filters the provider list",
+        "Recommended providers list shows photo, name, profession, location, average star rating, and price",
+        "Home screen is responsive and lightweight"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Build a Provider Profile screen displaying: profile photo, full name, profession, location, hourly/service price, average star rating with total review count, a list of written reviews, a 'Contratar' (Hire) button that initiates a message, and a premium badge if the provider has a premium plan.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Foto, Nome, Profissão, Localização, Preço, Avaliações (1 a 5 estrelas), Botão 'Contratar'"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Provider profile displays all listed fields",
+        "Star rating is shown as an average with review count",
+        "Reviews list shows reviewer name, star rating, and comment",
+        "'Contratar' button opens a new message thread with the provider",
+        "Premium badge is visible on premium provider profiles"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Implement a backend data model and storage for: users (id, name, phone, location, profession, isPremium, avatarUrl), services/providers (linked to user), reviews (reviewer, provider, stars, comment, timestamp), and messages (senderId, receiverId, content, timestamp, threadId).",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Banco de Dados: Usuários, Serviços, Avaliações, Mensagens"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend stores and retrieves user profiles",
+        "Backend stores and retrieves reviews per provider",
+        "Backend stores and retrieves messages grouped by thread",
+        "All CRUD operations are exposed via query/update calls"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Build an asynchronous messaging inbox. Users can view all their message threads (showing the other party's name, last message preview, and timestamp). Clicking a thread opens the conversation. New messages are sent via an input field. The inbox refreshes via polling (no WebSockets).",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Sistema de mensagens assíncrono (inbox com polling, sem chat em tempo real)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Inbox lists all message threads for the logged-in user",
+        "Each thread shows the other party's name, last message preview, and timestamp",
+        "Opening a thread shows full message history",
+        "User can send a new message via an input field",
+        "Inbox polls for new messages at a regular interval"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Build a Review/Evaluation screen where a client can submit a star rating (1–5) and a written comment for a provider after hiring them. Submitted reviews must be stored in the backend and reflected in the provider's profile.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Sistema de estrelas",
+          "Comentário"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Review form shows a 1–5 star selector and a text comment field",
+        "Submitted reviews are saved to the backend",
+        "Provider's average rating updates after a new review is submitted",
+        "Reviews appear in the provider's profile"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Implement premium plan and commission indicators. Provider profiles must display a 'Premium' badge if they have a premium subscription. A visible note must indicate that TrampoMZ charges a 5% commission per completed service. These are display-only indicators (no payment gateway integration).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Comissão de 5% por serviço",
+          "Plano premium para destacar perfil"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Premium providers have a visible badge on their profile and in the provider list",
+        "A 5% commission notice is displayed on relevant screens (e.g., provider profile or hire confirmation)",
+        "No real payment processing is implemented"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Apply a consistent visual theme across the entire app: warm African-inspired color palette (e.g., earthy reds, greens, and gold tones), bold readable typography, card-based layout for provider listings, and mobile-first responsive design optimized for lightweight performance on slow connections.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2",
+          "msg-6"
+        ],
+        "quotes": [
+          "Interface simples, leve e adaptada para usuários com internet lenta"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Color palette is consistent throughout all screens",
+        "Typography is legible on small mobile screens",
+        "Layouts are card-based and mobile-first",
+        "App loads quickly with minimal assets and no heavy animations"
+      ]
+    }
+  ],
+  "constraints": [
+    "No native Android build — the app must run as a PWA in the browser",
+    "No WebSockets or real-time chat — messaging must use polling",
+    "Authentication only via Internet Identity (Google); no SMS/OTP",
+    "No external payment gateway — commission and premium are display-only",
+    "No Firebase or external database — all data stored in Motoko backend"
+  ],
+  "nonGoals": [
+    "Native Android or iOS app compilation",
+    "SMS-based OTP authentication",
+    "Real-time WebSocket chat",
+    "Payment processing or actual billing",
+    "Firebase or any external database integration",
+    "Admin dashboard or back-office panel"
+  ],
+  "imageRequirements": {
+    "required": [
+      "TrampoMZ app logo — bold circular emblem with a handshake or wrench icon on a warm red-orange background, app name 'TrampoMZ' below in white sans-serif (trampo-logo.dim_512x512.png)",
+      "Splash screen background — abstract warm gradient with subtle African geometric pattern in earthy red, gold, and green tones (splash-bg.dim_1080x1920.png)",
+      "Default provider avatar placeholder — neutral silhouette icon on a light warm grey background (avatar-placeholder.dim_256x256.png)"
+    ],
+    "edits": []
+  }
+}
